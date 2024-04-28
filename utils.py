@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+from math import *
 
 def execute_formula(f, x):
     """
