@@ -8,7 +8,6 @@ def execute_formula(f, x):
     :param x: Float, The value of x
     :return: f(a) as float
     """
-    print(f, x)
     return eval(f.replace("x", f"({x})"))
 
 def get_points(formula, x_minus, x_plus, get_roots=False):

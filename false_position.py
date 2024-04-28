@@ -68,22 +68,25 @@ time_sum = 0
 
 # For each inversion, use the false positon method to calc the root
 for a, b in inversions:
-    # Get the ini time
-    init_time = datetime.now()
+    try:
+        # Get the ini time
+        init_time = datetime.now()
 
-    # use the false positon method and get the roor and steps o it
-    r, steps= calcula(a, b, form, e_ideal)
+        # use the false positon method and get the roor and steps o it
+        r, steps= calcula(a, b, form, e_ideal)
 
-    # Store found root in found_roots
-    found_roots.append(r)
+        # Store found root in found_roots
+        found_roots.append(r)
 
-    #get end time
-    end_time = datetime.now()
+        #get end time
+        end_time = datetime.now()
 
-    # calc and print execution time
-    duration = end_time-init_time
-    time_sum += duration.total_seconds()
-    print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+        # calc and print execution time
+        duration = end_time-init_time
+        time_sum += duration.total_seconds()
+        print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+    except ZeroDivisionError:
+        print(f"Não foi possível estimar para o ponto ({a}, {b})")
 
 print(f"Média das execuções do algorítmo: {time_sum/len(inversions)}s")
 

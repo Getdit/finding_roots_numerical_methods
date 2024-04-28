@@ -58,22 +58,25 @@ time_sum = 0
 
 # for echar inversion, calc the root by the secant method
 for a, b in inversions:
-    # get the initial time
-    init_time = datetime.now()
+    try:
+        # get the initial time
+        init_time = datetime.now()
 
-    # get the roor and steps
-    r, steps= calcula(a, b, form, e)
+        # get the roor and steps
+        r, steps= calcula(a, b, form, e)
 
-    # store the found root to dound_roots
-    found_roots.append(r)
+        # store the found root to dound_roots
+        found_roots.append(r)
 
-    # get the end time
-    end_time = datetime.now()
+        # get the end time
+        end_time = datetime.now()
 
-    # calculate and print the total time
-    duration = end_time-init_time
-    time_sum += duration.total_seconds()
-    print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+        # calculate and print the total time
+        duration = end_time-init_time
+        time_sum += duration.total_seconds()
+        print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+    except ZeroDivisionError:
+        print(f"Nao foi possível estimar para os pontos ({a}, {b})")
 
 print(f"Média das execuções do algorítmo: {time_sum/len(inversions)}s")
 

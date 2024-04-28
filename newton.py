@@ -55,22 +55,25 @@ points, inversions, found_roots = get_points(form, x_minus, x_plus)
 time_sum = 0
 
 for a, b in inversions:
-    # get the inital time
-    init_time = datetime.now()
+    try:
+        # get the inital time
+        init_time = datetime.now()
 
-    # get the root by the newton method and the steps count
-    r, steps= calcula(a, form, d_formula, e)
+        # get the root by the newton method and the steps count
+        r, steps= calcula(a, form, d_formula, e)
 
-    # store the root in found_roots
-    found_roots.append(r)
+        # store the root in found_roots
+        found_roots.append(r)
 
-    #get the end time
-    end_time = datetime.now()
+        #get the end time
+        end_time = datetime.now()
 
-    # calc and print the duration
-    duration = end_time-init_time
-    time_sum += duration.total_seconds()
-    print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+        # calc and print the duration
+        duration = end_time-init_time
+        time_sum += duration.total_seconds()
+        print(f"Duração: {duration.total_seconds()}s\nPassos: {steps}\n\n")
+    except ZeroDivisionError:
+        print(f"Não foi possível estimar para o ponto ({a}, {b})")
 
 print(f"Média das execuções do algorítmo: {time_sum/len(inversions)}s")
 
