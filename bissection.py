@@ -52,12 +52,17 @@ def calcula(a, b, form, e_ideal, k_val, k = 0):
     f_b = execute_formula(form, b)
     f_x = execute_formula(form, xm)
 
+    ea = abs(a-xm)
+    eb = abs(b-xm)
+
+    e = ea if ea < eb else eb
     # print iterations
     if SHOW_ITERATIONS:
-        print(f"    Iteração {k}:\n        |\n        |----> A: {round(a, 5)}\n        |----> B: {round(b, 5)}\n        |----> xm: {round(xm, 5)}\n        |----> f(xm): {round(f_x, 5)}\n\n")
+        print(f"    Iteração {k}:\n        |\n        |----> A: {round(a, 5)}\n        |----> B: {round(b, 5)}\n        |----> xm: {round(xm, 5)}\n        |----> f(xm): {round(f_x, 5)}\n        |----> e: {round(e, 5)}\n\n")
 
+        
     # if k reachs the k_val, finish
-    if k == k_val:
+    if e <= e_ideal:
         if SHOW_ITERATIONS:
             print("FIM")
         return xm

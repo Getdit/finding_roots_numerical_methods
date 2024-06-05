@@ -27,7 +27,7 @@ def calcula(xi, formula, d_formula, e, counter=0):
 
     # show iteration
     if SHOW_ITERATIONS:
-        print(f"  Iteração {counter}:\n        |\n        |----> x{counter}: {round(xi, 5)}\n        |----> x{counter+1}: {round(xi1, 5)}\n        |----> erro estimado: {e}\n        |----> erro: {round(error, 9)}\n\n")
+        print(f"  Iteração {counter}:\n        |\n        |----> x{counter}: {round(xi, 5)}\n        |----> x{counter+1}: {round(xi1, 5)}\n        |----> f(x{counter+1}): {round(execute_formula(formula, xi1), 20)}\n        |----> erro estimado: {e}\n        |----> erro: {round(error, 9)}\n\n")
 
     # if error <= the ideal error, finish. Otherwise, call itself
     if error <= e:
