@@ -18,7 +18,7 @@ def input_linear_sys():
         matrix_sys.append(sys[:-1])
         matrix_b.append([sys[-1]])
 
-    return np.array(matrix_sys), np.array(matrix_b)
+    return np.array(matrix_sys, dtype=float), np.array(matrix_b, dtype=float)
 
 
 
@@ -47,18 +47,56 @@ def cramer_lin_sol(a=None, b=None):
 
         incs.append(inc)
     
-    return np.array(incs)
+    return np.array(incs, dtype=float)
 
-a = [
-    [1, 2, 3],
-    [10, 20, 33],
-    [9, 8, 7],
-]
+def gauss_jacobi_lin_sol(a=None, b=None, error=0.5, inc=None):
+    if a is None or b is None:
+        a, b = input_linear_sys()
+        
+    lines, cols = a.shape
 
-b = [
-    [2, ],
-    [3, ],
-    [4, ],
-]
+    if inc is None:
+        inc = [0] * cols
+    
+    elif len(inc) != cols:
+        raise ValueError("INC incompleto")
 
-print(cramer_lin_sol())
+    max_error = error + 1
+    interaction = 0
+    while max_error >= error:
+        interaction+= 1
+        temp_inc = []
+        e = []
+        for col in range(cols):
+            x = (1/a[col, col])*(b[col][0] - sum([((a[col, j]*inc[j]) if j != col else 0) for j in range(len(inc))]))
+            e.append(abs(x-inc[col]))
+            temp_inc.append(x)
+        inc = temp_inc
+        max_error = max(e)
+    
+    return inc, interaction
+
+def gauss_seidel_lin_sol(a=None, b=None, error=0.5, inc=None):
+    if a is None or b is None:
+        a, b = input_linear_sys()
+        
+    lines, cols = a.shape
+
+    if inc is None:
+        inc = [0] * cols
+    
+    elif len(inc) != cols:
+        raise ValueError("INC incompleto")
+
+    max_error = error + 1
+    interaction = 0
+    while max_error >= error:
+        interaction+= 1
+        e = []
+        for col in range(cols):
+            x = (1/a[col, col])*(b[col][0] - sum([((a[col, j]*inc[j]) if j != col else 0) for j in range(len(inc))]))
+            e.append(abs(x-inc[col]))
+            inc[col] = x
+        max_error = max(e)
+    
+    return inc, interaction
